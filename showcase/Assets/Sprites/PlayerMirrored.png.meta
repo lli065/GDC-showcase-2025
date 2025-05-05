@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: f772b505be98646a88d2d4defb354eae
+guid: 43df7b0c8f5db4b03a837432a9314aa7
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,136 +110,10 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Image_20250501_193905_180_0
+      name: PlayerMirrored_0
       rect:
         serializedVersion: 2
-        x: 38
-        y: 2
-        width: 117
-        height: 232
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a3720de2a81e445a487f90018a6aae3a
-      internalID: 950664004
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Image_20250501_193905_180_1
-      rect:
-        serializedVersion: 2
-        x: 221
-        y: 1
-        width: 96
-        height: 235
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6b631d1ddb38e47f9819c63dfe4f4ad7
-      internalID: 106903609
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Image_20250501_193905_180_2
-      rect:
-        serializedVersion: 2
-        x: 407
-        y: 2
-        width: 88
-        height: 233
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 1d37367069cb74ffd98ba8fd416eaa09
-      internalID: 1123818494
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Image_20250501_193905_180_3
-      rect:
-        serializedVersion: 2
-        x: 570
-        y: 2
-        width: 89
-        height: 233
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: beef797c768114ca99c2ab0280cc5d58
-      internalID: -953211979
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Image_20250501_193905_180_4
-      rect:
-        serializedVersion: 2
-        x: 727
-        y: 4
-        width: 89
-        height: 234
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 642b131ccfdf948da929bb04983caa93
-      internalID: 231802521
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Image_20250501_193905_180_5
-      rect:
-        serializedVersion: 2
-        x: 884
-        y: 1
-        width: 89
-        height: 236
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d1735c12d798b4ec4a930bcd2c0ebe99
-      internalID: -1031452910
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Image_20250501_193905_180_6
-      rect:
-        serializedVersion: 2
-        x: 1042
+        x: 37
         y: 1
         width: 86
         height: 235
@@ -250,8 +124,134 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8ee95986162874cbfa4bd644f29556d4
-      internalID: 17907805
+      spriteID: 703c7e1afbc214c30a74a26ee51463bd
+      internalID: -270971014
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerMirrored_1
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 1
+        width: 89
+        height: 236
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7f9935ba27e3c4ce7a5ecfb9e32eca85
+      internalID: -1147205340
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerMirrored_2
+      rect:
+        serializedVersion: 2
+        x: 349
+        y: 4
+        width: 89
+        height: 234
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 20d87ef18477e43ab817f3475db0799d
+      internalID: -400681096
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerMirrored_3
+      rect:
+        serializedVersion: 2
+        x: 506
+        y: 2
+        width: 89
+        height: 233
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fc6bd606e5de047bf80efe62ba631e24
+      internalID: 1376737941
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerMirrored_4
+      rect:
+        serializedVersion: 2
+        x: 670
+        y: 2
+        width: 88
+        height: 233
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f84798a5e31564b4aa53d45142902a00
+      internalID: 1187318003
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerMirrored_5
+      rect:
+        serializedVersion: 2
+        x: 848
+        y: 1
+        width: 96
+        height: 235
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 812d3250bf85544d8a6fb9ab5dd89161
+      internalID: -996791850
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerMirrored_6
+      rect:
+        serializedVersion: 2
+        x: 1010
+        y: 2
+        width: 117
+        height: 232
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9d1080acf12ef405eae341d3f25e5d0b
+      internalID: 1488434787
       vertices: []
       indices: 
       edges: []
@@ -259,7 +259,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: b7be653361b5b4f689857aeeb9627981
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -267,13 +267,13 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Image_20250501_193905_180_0: 950664004
-      Image_20250501_193905_180_1: 106903609
-      Image_20250501_193905_180_2: 1123818494
-      Image_20250501_193905_180_3: -953211979
-      Image_20250501_193905_180_4: 231802521
-      Image_20250501_193905_180_5: -1031452910
-      Image_20250501_193905_180_6: 17907805
+      PlayerMirrored_0: -270971014
+      PlayerMirrored_1: -1147205340
+      PlayerMirrored_2: -400681096
+      PlayerMirrored_3: 1376737941
+      PlayerMirrored_4: 1187318003
+      PlayerMirrored_5: -996791850
+      PlayerMirrored_6: 1488434787
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -7,6 +7,7 @@ public class EnemyController : MonoBehaviour
     private GameObject player;
     private Rigidbody2D rb;
     public float speed = 1f;
+    public float lookRadius = 10f;
 
     // Start is called before the first frame update
     void Start()

@@ -18,18 +18,18 @@ public class AnimationController : MonoBehaviour
 
     void Update()
     {
-        if (playerController.movement.x != 0) {
-            animator.SetInteger("Direction", 1);
-        }
-        else if (playerController.movement.y > 0) {
-            animator.SetInteger("Direction", 2);
-        }
-        else if (playerController.movement.y < 0) {
-            animator.SetInteger("Direction", 3);
-        }
-        else {
-            animator.SetInteger("Direction", 0);
-        }
+        // if (playerController.movement.x != 0) {
+        //     animator.SetInteger("Direction", 1);
+        // }
+        // else if (playerController.movement.y > 0) {
+        //     animator.SetInteger("Direction", 2);
+        // }
+        // else if (playerController.movement.y < 0) {
+        //     animator.SetInteger("Direction", 3);
+        // }
+        // else {
+        //     animator.SetInteger("Direction", 0);
+        // }
 
         if (playerController.movement.x > 0) {
             playerController.transform.localScale = new Vector3(1, 1, 1);

@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     public Rigidbody2D playerRigid;
     public Animator animator;
+    public HealthBar healthBar;
 
     public Vector2 movement;
     public float speed;
@@ -17,6 +18,11 @@ public class PlayerController : MonoBehaviour
     }
     private void Update()
     {
+        if (DialogueManager.isTalking) {
+            playerRigid.velocity = Vector2.zero;
+            return;
+        }
+
         movement = new Vector2();
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
@@ -34,5 +40,12 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate() {
         playerRigid.MovePosition(playerRigid.position + movement * speed * Time.fixedDeltaTime);
+    }
+
+    void OnCollisionEnter2D(Collision2D collision) {
+        if (collision.gameObject.name == "Enemy") {
+            health -= 3;
+            healthBar.SetHealth(health);
+        }
     }
 }

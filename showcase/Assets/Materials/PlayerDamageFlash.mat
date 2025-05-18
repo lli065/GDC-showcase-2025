@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: DamageFlashMat
+  m_Name: PlayerDamageFlash
   m_Shader: {fileID: -6465566751694194690, guid: 169e2ee06547d4d93acf30c0826884d0, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -41,11 +41,11 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _FlashAmount: 1
+    - _FlashAmount: 0
     m_Colors:
     - _FlashColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
---- !u!114 &700710723134938395
+--- !u!114 &8413314405266115792
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}

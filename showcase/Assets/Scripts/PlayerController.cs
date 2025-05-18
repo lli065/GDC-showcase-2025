@@ -20,11 +20,14 @@ public class PlayerController : MonoBehaviour
     float nextAttackTime = 0;
     public float attackForce = 20f;
     public GameObject attackPrefab;
+
+    private DamageFlash damageFlash;
     
     private void Start()
     {
         currentHealth = maxHealth;
         playerRigid = gameObject.GetComponent<Rigidbody2D>();
+        damageFlash = GetComponent<DamageFlash>();
     }
 
     private void Update()
@@ -65,13 +68,15 @@ public class PlayerController : MonoBehaviour
 
     public void TakeDamage(int damage) {
         currentHealth -= damage;
+        healthBar.SetHealth(currentHealth);
+        damageFlash.CallDamageFlash();
         if (currentHealth <= 0) {
             Die();
         }
     }
 
     public void Die() {
-
+        Debug.Log("Dead");
     }
 
     private void FixedUpdate() {
@@ -79,9 +84,8 @@ public class PlayerController : MonoBehaviour
     }
 
     void OnCollisionEnter2D(Collision2D collision) {
-        if (collision.gameObject.name == "Enemy") {
-            currentHealth -= 3;
-            healthBar.SetHealth(currentHealth);
+        if (collision.gameObject.CompareTag("Enemy")) {
+            TakeDamage(3);
         }
     }
 }

@@ -15,6 +15,7 @@ public class DamageFlash : MonoBehaviour
 
     private void Awake() {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        Init();
     }
 
     private void Init() {
@@ -37,9 +38,10 @@ public class DamageFlash : MonoBehaviour
             elapsedTime += Time.deltaTime;
             currentFlashAmount = Mathf.Lerp(1f, flashSpeedCurve.Evaluate(elapsedTime), elapsedTime / flashTime);
 
-            material.SetFloat("_FlashColor", currentFlashAmount);
+            material.SetFloat("_FlashAmount", currentFlashAmount);
 
             yield return null;
         }
+        material.SetFloat("_FlashAmount", 0f);
     }
 }

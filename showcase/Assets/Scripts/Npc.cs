@@ -4,13 +4,25 @@ using UnityEngine;
 
 public class Npc : MonoBehaviour
 {
+    [SerializeField] private GameObject visualCue;
+
     public Dialogue dialogue;
-    private bool playerNearby = false;
+    private bool playerNearby;
+
+    private void Awake() {
+        playerNearby = false;
+        visualCue.SetActive(false);
+    }
 
     void Update() {
         if (playerNearby && Input.GetKeyDown(KeyCode.Space) && 
         !DialogueManager.isTalking && DialogueManager.canTrigger) {
             TriggerDialogue();
+        }
+        if (playerNearby && !DialogueManager.isTalking) {
+            visualCue.SetActive(true);
+        } else {
+            visualCue.SetActive(false);
         }
     }
 

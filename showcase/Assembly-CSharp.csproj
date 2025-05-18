@@ -65,14 +65,16 @@
   <ItemGroup>
     <Compile Include="Assets/TextMesh Pro/Examples &amp; Extras/Scripts/TMP_TextEventHandler.cs" />
     <Compile Include="Assets/TextMesh Pro/Examples &amp; Extras/Scripts/VertexShakeA.cs" />
+    <Compile Include="Assets/Scripts/Dialogue/DialogueManager.cs" />
     <Compile Include="Assets/TextMesh Pro/Examples &amp; Extras/Scripts/TMP_ExampleScript_01.cs" />
     <Compile Include="Assets/TextMesh Pro/Examples &amp; Extras/Scripts/TMPro_InstructionOverlay.cs" />
     <Compile Include="Assets/TextMesh Pro/Examples &amp; Extras/Scripts/VertexShakeB.cs" />
     <Compile Include="Assets/TextMesh Pro/Examples &amp; Extras/Scripts/DropdownSample.cs" />
     <Compile Include="Assets/TextMesh Pro/Examples &amp; Extras/Scripts/VertexColorCycler.cs" />
+    <Compile Include="Assets/Scripts/Dialogue/Dialogue.cs" />
     <Compile Include="Assets/TextMesh Pro/Examples &amp; Extras/Scripts/EnvMapAnimator.cs" />
+    <Compile Include="Assets/Scripts/Dialogue/DialogueLine.cs" />
     <Compile Include="Assets/TextMesh Pro/Examples &amp; Extras/Scripts/TMP_TextSelector_A.cs" />
-    <Compile Include="Assets/Scripts/Dialogue.cs" />
     <Compile Include="Assets/TextMesh Pro/Examples &amp; Extras/Scripts/Benchmark01_UGUI.cs" />
     <Compile Include="Assets/TextMesh Pro/Examples &amp; Extras/Scripts/SimpleScript.cs" />
     <Compile Include="Assets/Scripts/EnemyController.cs" />
@@ -83,7 +85,6 @@
     <Compile Include="Assets/Scripts/AnimationController.cs" />
     <Compile Include="Assets/TextMesh Pro/Examples &amp; Extras/Scripts/VertexJitter.cs" />
     <Compile Include="Assets/TextMesh Pro/Examples &amp; Extras/Scripts/TMP_DigitValidator.cs" />
-    <Compile Include="Assets/Scripts/DialogueManager.cs" />
     <Compile Include="Assets/TextMesh Pro/Examples &amp; Extras/Scripts/TMP_FrameRateCounter.cs" />
     <Compile Include="Assets/Scripts/Npc.cs" />
     <Compile Include="Assets/Scripts/LevelManager.cs" />

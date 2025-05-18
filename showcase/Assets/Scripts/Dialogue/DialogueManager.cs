@@ -13,8 +13,9 @@ public class DialogueManager : MonoBehaviour
     public TextMeshProUGUI dialogueText;
 
     public Animator animator;
+    [SerializeField] private GameObject dialogueBox;
 
-    private Queue<string> sentences;
+    private Queue<DialogueLine> sentences;
     private bool isTyping = false;
     private string currentSentence;
     private Coroutine typingCoroutine;
@@ -22,7 +23,8 @@ public class DialogueManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        sentences = new Queue<string>();
+        sentences = new Queue<DialogueLine>();
+        dialogueBox.SetActive(false);
     }
 
     void Update() {
@@ -32,16 +34,15 @@ public class DialogueManager : MonoBehaviour
     }
 
     public void StartDialogue(Dialogue dialogue) {
+        dialogueBox.SetActive(true);
         isTalking = true;
         animator.SetBool("isOpen", true);
 
-        nameText.text = dialogue.name;
         sentences.Clear();
 
-        foreach (string sentence in dialogue.sentences) {
-            sentences.Enqueue(sentence);
+        foreach (DialogueLine line in dialogue.lines) {
+            sentences.Enqueue(line);
         }
-        DisplayNextSentence();
     }
 
     public void DisplayNextSentence() {
@@ -55,9 +56,10 @@ public class DialogueManager : MonoBehaviour
             isTyping = false;
             return;
         }
-        string sentence = sentences.Dequeue();
-        currentSentence = sentence;
-        StartCoroutine(TypeSentence(sentence));
+        DialogueLine line = sentences.Dequeue();
+        currentSentence = line.sentence;
+        nameText.text = line.name;
+        StartCoroutine(TypeSentence(currentSentence));
     }
 
     IEnumerator TypeSentence(string sentence) {

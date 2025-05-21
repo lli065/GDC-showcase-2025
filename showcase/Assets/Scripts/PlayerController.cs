@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour
     public LayerMask enemyLayers;
     public float attackRate = 2;
     float nextAttackTime = 0;
-    public float attackForce = 20f;
+    public float attackForce = 6f;
     public GameObject attackPrefab;
 
     private DamageFlash damageFlash;
@@ -38,7 +38,7 @@ public class PlayerController : MonoBehaviour
         }
 
         if (Time.time >= nextAttackTime) {
-            if (Input.GetKeyDown(KeyCode.C)) {
+            if (Input.GetKeyDown(KeyCode.Space)) {
                 Attack();
                 nextAttackTime = Time.time + 1f / attackRate;
             }
@@ -61,9 +61,15 @@ public class PlayerController : MonoBehaviour
     }
 
     void Attack() {
-        GameObject attack =  Instantiate(attackPrefab, attackPoint.position, attackPoint.rotation);
+        Vector2 direction = new Vector2(animator.GetFloat("LastHorizontal"), animator.GetFloat("LastVertical")).normalized;
+        if (direction == Vector2.zero) {
+            direction = Vector2.up;
+        }
+        GameObject attack =  Instantiate(attackPrefab, transform.position, Quaternion.identity);
         Rigidbody2D rb = attack.GetComponent<Rigidbody2D>();
-        rb.AddForce(attackPoint.up * attackForce, ForceMode2D.Impulse);
+        rb.velocity = direction * attackForce;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90;
+        attack.transform.rotation = Quaternion.Euler(0, 0, angle);
     }
 
     public void TakeDamage(int damage) {

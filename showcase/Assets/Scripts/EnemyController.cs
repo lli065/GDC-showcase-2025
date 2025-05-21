@@ -6,12 +6,14 @@ public class EnemyController : MonoBehaviour
 {
     private Transform target;
     private Rigidbody2D rb;
-    [SerializeField] private float attackRate = 1f;
+    [SerializeField] private float attackRate = 3f;
     [SerializeField] private float range = 5f;
+    [SerializeField] private float attackForce = 6f;
     [SerializeField] private GameObject attackPrefab;
 
-    public int maxHealth = 100;
+    public int maxHealth = 30;
     int currentHealth;
+    [SerializeField] HealthBar healthBar;
 
     private DamageFlash damageFlash;
     private bool isAttacking = false;
@@ -24,6 +26,8 @@ public class EnemyController : MonoBehaviour
 
         currentHealth = maxHealth;
         damageFlash = GetComponent<DamageFlash>();
+        healthBar = GetComponentInChildren<HealthBar>();
+        healthBar.UpdateHealthBar(currentHealth, maxHealth);
     }
 
     // Update is called once per frame
@@ -50,11 +54,12 @@ public class EnemyController : MonoBehaviour
         GameObject attack = Instantiate(attackPrefab, transform.position, Quaternion.identity);
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         attack.transform.rotation = Quaternion.Euler(0, 0, angle);
-        attack.GetComponent<Rigidbody2D>().velocity = direction * 5f;
+        attack.GetComponent<Rigidbody2D>().velocity = direction * attackForce;
     }
 
     public void TakeDamage(int damage) {
         currentHealth -= damage;
+        healthBar.UpdateHealthBar(currentHealth, maxHealth);
         damageFlash.CallDamageFlash();
         if (currentHealth <= 0) {
             Die();
@@ -62,6 +67,6 @@ public class EnemyController : MonoBehaviour
     }
 
     public void Die() {
-
+        Destroy(gameObject);
     }
 }

@@ -5,12 +5,19 @@ using UnityEngine;
 public class Attack : MonoBehaviour
 {
     public GameObject hitEffect;
-    public int attackDamage = 40;
+    public float lifetime = 1f;
+    public int attackDamage = 10;
+
+    void Start() {
+        Destroy(gameObject, lifetime);
+    }
 
     void OnCollisionEnter2D(Collision2D collision) {
-        collision.gameObject.GetComponent<EnemyController>().TakeDamage(attackDamage);
-        GameObject effect = Instantiate(hitEffect, transform.position, Quaternion.identity);
-        Destroy(effect, 5f);
-        Destroy(gameObject);
+        if (collision.gameObject.CompareTag("Enemy")) {
+            collision.gameObject.GetComponent<EnemyController>().TakeDamage(attackDamage);
+            GameObject effect = Instantiate(hitEffect, transform.position, Quaternion.identity);
+            Destroy(effect, 5f);
+            Destroy(gameObject);
+        }
     }
 }

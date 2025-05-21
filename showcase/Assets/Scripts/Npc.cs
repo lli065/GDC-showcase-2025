@@ -15,7 +15,7 @@ public class Npc : MonoBehaviour
     }
 
     void Update() {
-        if (playerNearby && Input.GetKeyDown(KeyCode.Space) && 
+        if (playerNearby && Input.GetKeyDown(KeyCode.E) && 
         !DialogueManager.isTalking && DialogueManager.canTrigger) {
             TriggerDialogue();
         }

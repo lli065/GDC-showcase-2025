@@ -5,8 +5,8 @@ using UnityEngine;
 public class EnemyAttack : MonoBehaviour
 {
     public GameObject hitEffect;
-    public float lifetime = 3f;
-    public int attackDamage = 40;
+    public float lifetime = 1f;
+    public int attackDamage = 10;
 
     void Start() {
         Destroy(gameObject, lifetime);

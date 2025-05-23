@@ -17,6 +17,7 @@ public class EnemyController : MonoBehaviour
 
     private DamageFlash damageFlash;
     private bool isAttacking = false;
+    public GameObject ghostPrefab;
 
     // Start is called before the first frame update
     void Start()
@@ -33,23 +34,28 @@ public class EnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Vector3.Distance(target.position, transform.position) <= range) {
-            if (!isAttacking) {
+        if (Vector3.Distance(target.position, transform.position) <= range)
+        {
+            if (!isAttacking)
+            {
                 StartCoroutine(AttackCoroutine());
             }
         }
     }
 
-    IEnumerator AttackCoroutine() {
+    IEnumerator AttackCoroutine()
+    {
         isAttacking = true;
-        while (Vector3.Distance(target.position, transform.position) <= range) {
+        while (Vector3.Distance(target.position, transform.position) <= range)
+        {
             Attack();
             yield return new WaitForSeconds(1f / attackRate);
         }
         isAttacking = false;
     }
 
-    void Attack() {
+    void Attack()
+    {
         Vector2 direction = (target.position - transform.position).normalized;
         GameObject attack = Instantiate(attackPrefab, transform.position, Quaternion.identity);
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
@@ -57,16 +63,26 @@ public class EnemyController : MonoBehaviour
         attack.GetComponent<Rigidbody2D>().velocity = direction * attackForce;
     }
 
-    public void TakeDamage(int damage) {
+    public void TakeDamage(int damage)
+    {
         currentHealth -= damage;
         healthBar.UpdateHealthBar(currentHealth, maxHealth);
         damageFlash.CallDamageFlash();
-        if (currentHealth <= 0) {
+        if (currentHealth <= 0)
+        {
             Die();
         }
     }
 
-    public void Die() {
+    public void Die()
+    {
+        Invoke("SpawnGhost", 5f);
+        gameObject.SetActive(false);
+    }
+
+    public void SpawnGhost()
+    {
+        Instantiate(ghostPrefab, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
 }

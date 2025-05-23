@@ -19,6 +19,7 @@ public class DialogueManager : MonoBehaviour
     private bool isTyping = false;
     private string currentSentence;
     private Coroutine typingCoroutine;
+    private Npc currentNpc;
 
     // Start is called before the first frame update
     void Start()
@@ -28,44 +29,52 @@ public class DialogueManager : MonoBehaviour
     }
 
     void Update() {
-        if (isTalking && Input.GetKeyDown(KeyCode.Space)) {
+        if (isTalking && Input.GetKeyDown(KeyCode.E)) {
             DisplayNextSentence();
         }
     }
 
-    public void StartDialogue(Dialogue dialogue) {
+    public void StartDialogue(Dialogue dialogue, Npc npc)
+    {
         dialogueBox.SetActive(true);
         isTalking = true;
         animator.SetBool("isOpen", true);
+        currentNpc = npc;
 
         sentences.Clear();
 
-        foreach (DialogueLine line in dialogue.lines) {
+        foreach (DialogueLine line in dialogue.lines)
+        {
             sentences.Enqueue(line);
         }
     }
 
     public void DisplayNextSentence() {
-        if (sentences.Count == 0) {
-            EndDialogue();
-            return;
-        }
-        if (isTyping) {
+        if (isTyping)
+        {
             StopAllCoroutines();
             dialogueText.text = currentSentence;
             isTyping = false;
             return;
         }
+        if (sentences.Count == 0)
+        {
+            EndDialogue();
+            return;
+        }
+        
         DialogueLine line = sentences.Dequeue();
         currentSentence = line.sentence;
         nameText.text = line.name;
         StartCoroutine(TypeSentence(currentSentence));
     }
 
-    IEnumerator TypeSentence(string sentence) {
+    IEnumerator TypeSentence(string sentence)
+    {
         dialogueText.text = "";
         isTyping = true;
-        foreach (char letter in sentence.ToCharArray()) {
+        foreach (char letter in sentence.ToCharArray())
+        {
             dialogueText.text += letter;
             yield return new WaitForSeconds(.05f);
         }
@@ -75,6 +84,11 @@ public class DialogueManager : MonoBehaviour
     public void EndDialogue() {
         animator.SetBool("isOpen", false);
         isTalking = false;
+        if (currentNpc != null)
+        {
+            currentNpc.OnDialogueComplete();
+            currentNpc = null;
+        }
         StartCoroutine(DialogueCooldown());
     }
 

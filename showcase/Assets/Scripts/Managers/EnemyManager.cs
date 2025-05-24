@@ -6,7 +6,7 @@ public class EnemyManager : MonoBehaviour
 {
     public static EnemyManager Instance;
 
-    public int maxEnemies = 30;
+    public int maxEnemies = 10;
     public int numEnemies = 0;
 
     void Awake()

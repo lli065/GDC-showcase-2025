@@ -5,12 +5,13 @@ using UnityEngine;
 public class EdibleMushroom : MonoBehaviour
 {
     private bool playerNearby = false;
+    [SerializeField] private MushroomType type;
 
     void Update()
     {
         if (playerNearby && Input.GetKeyDown(KeyCode.E))
         {
-            MushroomManager.Instance.AddMushroom();
+            MushroomManager.Instance.AddMushroom(type);
             Destroy(gameObject);
         }
     }

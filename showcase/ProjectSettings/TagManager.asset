@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Enemy
   - Ghost
+  - Witch
+  - PlayerAttack
   layers:
   - Default
   - TransparentFX
@@ -16,7 +18,7 @@ TagManager:
   - Enemy
   - Player
   - Attack
-  - 
+  - PlayerAttack
   - 
   - 
   - 

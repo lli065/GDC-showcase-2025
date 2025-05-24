@@ -10,6 +10,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private float range = 5f;
     [SerializeField] private float attackForce = 6f;
     [SerializeField] private GameObject attackPrefab;
+    [SerializeField] private int droppedMushrooms = 3;
 
     public int maxHealth = 30;
     int currentHealth;
@@ -18,6 +19,7 @@ public class EnemyController : MonoBehaviour
     private DamageFlash damageFlash;
     private bool isAttacking = false;
     public GameObject ghostPrefab;
+    public GameObject mushroomPrefab;
 
     // Start is called before the first frame update
     void Start()
@@ -76,7 +78,8 @@ public class EnemyController : MonoBehaviour
 
     public void Die()
     {
-        Invoke("SpawnGhost", 5f);
+        DropMushrooms();
+        Invoke("SpawnGhost", Random.Range(5, 15));
         gameObject.SetActive(false);
     }
 
@@ -84,5 +87,14 @@ public class EnemyController : MonoBehaviour
     {
         Instantiate(ghostPrefab, transform.position, Quaternion.identity);
         Destroy(gameObject);
+    }
+
+    public void DropMushrooms()
+    {
+        for (int i = 0; i < droppedMushrooms; i++)
+        {
+            Vector3 randomOffset = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), 0);
+            Instantiate(mushroomPrefab, transform.position + randomOffset, Quaternion.identity);
+        }
     }
 }

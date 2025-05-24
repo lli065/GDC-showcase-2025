@@ -178,6 +178,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slider: {fileID: 5009941569265365438}
+  healthText: {fileID: 0}
 --- !u!1 &1283928704284948063
 GameObject:
   m_ObjectHideFlags: 0
@@ -267,6 +268,7 @@ GameObject:
   - component: {fileID: 6174444686115937881}
   - component: {fileID: 6563343407809248491}
   - component: {fileID: -8672488498094641814}
+  - component: {fileID: 1709209349723778621}
   m_Layer: 6
   m_Name: GhostEnemy
   m_TagString: Ghost
@@ -332,7 +334,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: c2854528b2a03475782468623e848fc7, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.9339623, g: 0.4304849, b: 0.40970984, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -456,11 +458,35 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageCooldown: 1
   speed: 2
-  attackDamage: 10
+  attackDamage: 5
+  minDistance: 7
+  maxDistance: 10
   maxHealth: 30
   healthBar: {fileID: 7300122514863131918}
   ghostPrefab: {fileID: 4080416208250221222}
-  spawnInterval: 5
+  mushroomPrefab: {fileID: 7732818002324470545, guid: 83ab3dec255db40d1b36f64581a6be4f, type: 3}
+  spawnInterval: 10
+--- !u!95 &1709209349723778621
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4080416208250221222}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 83a5a0bd2a9d348e888cacb403106a87, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &8894277854444548246
 GameObject:
   m_ObjectHideFlags: 0

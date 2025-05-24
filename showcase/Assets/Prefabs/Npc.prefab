@@ -30,6 +30,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7125258453155046244}
+  - {fileID: 900652554986029078}
   - {fileID: 1349363750074738357}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -42,10 +43,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7125258453155046244}
+  - component: {fileID: 4549854046419038621}
   - component: {fileID: 9063597704363548383}
   - component: {fileID: 2392546221747008413}
   - component: {fileID: 8676525055057463333}
-  - component: {fileID: 4549854046419038621}
   m_Layer: 0
   m_Name: Collider
   m_TagString: Untagged
@@ -68,6 +69,28 @@ Transform:
   m_Children: []
   m_Father: {fileID: 6997162514869231974}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4549854046419038621
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3540600315292109674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ecf56e7657a645b59e8b95fd33eb849, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  visualCue: {fileID: 4591864627594102910}
+  defaultDialogue:
+    lines: []
+  hurtDialogue:
+    lines: []
+  quest: {fileID: 0}
+  condition: 0
+  objectsToMove: []
+  movePositions: []
+  dialogueManager: {fileID: 6646286341565687723, guid: 1c92af2b664894f7e80f2a7b2dab1ff5, type: 3}
 --- !u!212 &9063597704363548383
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -182,28 +205,6 @@ CircleCollider2D:
   m_Offset: {x: 0.09919095, y: 0}
   serializedVersion: 2
   m_Radius: 0.59919095
---- !u!114 &4549854046419038621
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3540600315292109674}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ecf56e7657a645b59e8b95fd33eb849, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  visualCue: {fileID: 4591864627594102910}
-  defaultDialogue:
-    lines: []
-  conditionalDialogue:
-    lines: []
-  condition: 0
-  changeGameState: 0
-  stateToChange: 0
-  objectsToMove: []
-  movePositions: []
 --- !u!1 &4591864627594102910
 GameObject:
   m_ObjectHideFlags: 0
@@ -288,3 +289,56 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &5523388077525235074
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 900652554986029078}
+  - component: {fileID: 3855156321336610599}
+  m_Layer: 0
+  m_Name: Quest
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &900652554986029078
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5523388077525235074}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6997162514869231974}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3855156321336610599
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5523388077525235074}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89a0dc049b8c44d70af1a58610b25079, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startDialogue:
+    lines: []
+  inProgressDialogue:
+    lines: []
+  completedDialogue:
+    lines: []
+  postQuestDialogue:
+    lines: []
+  state: 0

@@ -8,8 +8,10 @@ public class GhostEnemy : MonoBehaviour
     private Rigidbody2D rb;
     [SerializeField] private float damageCooldown = 1f;
     [SerializeField] private float speed = 2f;
-    [SerializeField] private int attackDamage = 10;
+    [SerializeField] private int attackDamage = 5;
     private bool canDamage = true;
+    public float minDistance = 7f;
+    public float maxDistance = 10f;
 
     public int maxHealth = 30;
     int currentHealth;
@@ -17,7 +19,8 @@ public class GhostEnemy : MonoBehaviour
 
     private DamageFlash damageFlash;
     public GameObject ghostPrefab;
-    public float spawnInterval = 5;
+    public GameObject mushroomPrefab;
+    public float spawnInterval = 10;
 
     // Start is called before the first frame update
     void Start()
@@ -49,9 +52,11 @@ public class GhostEnemy : MonoBehaviour
     {
         if (EnemyManager.Instance.CanSpawnEnemy())
         {
-            Vector3 randomOffset = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), 0);
-            Instantiate(ghostPrefab, transform.position + randomOffset, Quaternion.identity);
-            EnemyManager.Instance.AddEnemy();
+            float angle = Random.Range(0, Mathf.PI * 2);
+            float distance = Random.Range(minDistance, maxDistance);
+            Vector3 offset = new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0) * distance;
+            Instantiate(ghostPrefab, player.position + offset, Quaternion.identity);
+            EnemyManager.Instance.numEnemies++;
         }
     }
 
@@ -71,6 +76,7 @@ public class GhostEnemy : MonoBehaviour
     public void Die()
     {
         EnemyManager.Instance.RemoveEnemy();
+        Instantiate(mushroomPrefab, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
 

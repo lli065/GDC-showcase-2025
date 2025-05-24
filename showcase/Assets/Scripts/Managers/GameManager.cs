@@ -7,8 +7,9 @@ public class GameManager : MonoBehaviour
     public static GameManager currentGameManager;
 
     public Transform playerTransform;
+    public bool talkedToWitch = false;
+    public bool finishedChickenQuest = false;
     public int currentScene;
-    public bool talkedToWitch;
 
     private void Awake()
     {

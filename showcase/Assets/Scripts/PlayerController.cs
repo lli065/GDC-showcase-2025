@@ -22,7 +22,6 @@ public class PlayerController : MonoBehaviour
     public GameObject attackPrefab;
 
     private DamageFlash damageFlash;
-    public int healAmount = 5;
     
     private void Start()
     {
@@ -43,11 +42,6 @@ public class PlayerController : MonoBehaviour
                 Attack();
                 nextAttackTime = Time.time + 1f / attackRate;
             }
-        }
-
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            MushroomManager.Instance.EatMushroom(healAmount);
         }
 
         movement = new Vector2();
@@ -79,9 +73,16 @@ public class PlayerController : MonoBehaviour
 
     public void TakeDamage(int damage) {
         currentHealth -= damage;
-        healthBar.SetHealth(currentHealth);
+        healthBar.UpdateHealthBar(currentHealth, maxHealth);
         damageFlash.CallDamageFlash();
-        if (currentHealth <= 0) {
+
+        if (DialogueManager.isTalking)
+        {
+            FindObjectOfType<DialogueManager>().EndDialogue();
+        }
+
+        if (currentHealth <= 0)
+        {
             Die();
         }
     }
@@ -90,7 +91,7 @@ public class PlayerController : MonoBehaviour
     {
         currentHealth += amt;
         currentHealth = Mathf.Min(maxHealth, currentHealth);
-        healthBar.SetHealth(currentHealth);
+        healthBar.UpdateHealthBar(currentHealth, maxHealth);
     }
 
     public void Die()

@@ -12,15 +12,19 @@ public class Attack : MonoBehaviour
         Destroy(gameObject, lifetime);
     }
 
-    void OnCollisionEnter2D(Collision2D collision)
+    void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Enemy"))
+        if (collision.CompareTag("Enemy"))
         {
-            collision.gameObject.GetComponent<EnemyController>().TakeDamage(attackDamage);
+            collision.GetComponent<EnemyController>().TakeDamage(attackDamage);
         }
-        else if (collision.gameObject.CompareTag("Ghost"))
+        else if (collision.CompareTag("Ghost"))
         {
-            collision.gameObject.GetComponent<GhostEnemy>().TakeDamage(attackDamage);
+            collision.GetComponent<GhostEnemy>().TakeDamage(attackDamage);
+        }
+        else if (collision.CompareTag("Witch"))
+        {
+            collision.GetComponent<WitchController>().TakeDamage(attackDamage);
         }
         GameObject effect = Instantiate(hitEffect, transform.position, Quaternion.identity);
         Destroy(effect, 1f);

@@ -18,11 +18,14 @@ public class WitchController : MonoBehaviour
     private DamageFlash damageFlash;
     private bool isAttacking = false;
 
-    // Start is called before the first frame update
+    public Animator animator; 
+
+
     void Start()
     {
         target = FindObjectOfType<PlayerController>().transform;
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
 
         currentHealth = maxHealth;
         damageFlash = GetComponent<DamageFlash>();
@@ -30,7 +33,6 @@ public class WitchController : MonoBehaviour
         healthBar.UpdateHealthBar(currentHealth, maxHealth);
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (Vector3.Distance(target.position, transform.position) <= range)
@@ -55,6 +57,8 @@ public class WitchController : MonoBehaviour
 
     void Attack()
     {
+        animator.SetTrigger("Attack");
+
         Vector2 direction = (target.position - transform.position).normalized;
         GameObject attack = Instantiate(attackPrefab, transform.position, Quaternion.identity);
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;

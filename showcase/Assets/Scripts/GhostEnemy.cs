@@ -21,6 +21,9 @@ public class GhostEnemy : MonoBehaviour
     public GameObject ghostPrefab;
     public GameObject mushroomPrefab;
     public float spawnInterval = 10;
+    private bool isKnockedBack = false;
+    private float knockbackTime = 0.2f;
+    private float knockbackCooldown = 0.2f;
 
     // Start is called before the first frame update
     void Start()
@@ -36,9 +39,17 @@ public class GhostEnemy : MonoBehaviour
         InvokeRepeating("SpawnGhosts", spawnInterval, spawnInterval);
     }
 
-    // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
+        if (isKnockedBack)
+        {
+            knockbackTime -= Time.fixedDeltaTime;
+            if (knockbackTime <= 0)
+            {
+                isKnockedBack = false;
+            }
+            return;
+        }
         rb.velocity = (player.position - transform.position).normalized * speed;
         transform.localScale = rb.velocity.x > 0 ? new Vector3(1, 1) : new Vector3(-1, 1);
     }
@@ -58,6 +69,14 @@ public class GhostEnemy : MonoBehaviour
             Instantiate(ghostPrefab, player.position + offset, Quaternion.identity);
             EnemyManager.Instance.numEnemies++;
         }
+    }
+
+    public void Knockback(Vector3 sourcePosition, float force)
+    {
+        Vector3 direction = (transform.position - sourcePosition).normalized;
+        rb.AddForce(direction * force, ForceMode2D.Impulse);
+        isKnockedBack = true;
+        knockbackTime = knockbackCooldown;
     }
 
     public void TakeDamage(int damage)

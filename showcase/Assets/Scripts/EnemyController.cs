@@ -18,6 +18,7 @@ public class EnemyController : MonoBehaviour
 
     private DamageFlash damageFlash;
     private bool isAttacking = false;
+    private bool isActive = true;
     public GameObject ghostPrefab;
     public GameObject mushroomPrefab;
 
@@ -38,7 +39,7 @@ public class EnemyController : MonoBehaviour
     {
         if (Vector3.Distance(target.position, transform.position) <= range)
         {
-            if (!isAttacking)
+            if (!isAttacking && isActive)
             {
                 StartCoroutine(AttackCoroutine());
             }
@@ -96,7 +97,24 @@ public class EnemyController : MonoBehaviour
             Instantiate(ghostPrefab, target.position + offset, Quaternion.identity);
             EnemyManager.Instance.numEnemies++;
         }
-        Destroy(gameObject);
+        if (GameManager.currentGameManager.inBossFight)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            GetComponent<SpriteRenderer>().enabled = false;
+            GetComponent<Collider2D>().enabled = false;
+            isActive = false;
+            Invoke("Respawn", 200f);
+        }
+    }
+
+    public void Respawn()
+    {
+        GetComponent<SpriteRenderer>().enabled = true;
+        GetComponent<Collider2D>().enabled = true;
+        isActive = true;
     }
 
     public void DropMushrooms()

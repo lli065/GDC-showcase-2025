@@ -53,6 +53,7 @@ public class WitchController : MonoBehaviour
 
     void Update()
     {
+        if (!GameManager.currentGameManager.inBossFight) return;
         if (currentHealth < maxHealth / 3)
         {
             enemiesPerSpawn = 3;

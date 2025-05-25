@@ -7,16 +7,22 @@ public class EnemyAttack : MonoBehaviour
     public GameObject hitEffect;
     public float lifetime = 1f;
     public int attackDamage = 10;
+    private bool hasHit = false;
 
     void Start() {
         Destroy(gameObject, lifetime);
     }
 
-    void OnCollisionEnter2D(Collision2D collision)
+    void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (hasHit) return;
+        if (collision.CompareTag("Player"))
         {
-            collision.gameObject.GetComponent<PlayerController>().TakeDamage(attackDamage);
+            hasHit = true;
+            if (collision.GetComponent<PlayerController>() != null)
+            {
+                collision.GetComponent<PlayerController>().TakeDamage(attackDamage);
+            }
             GameObject effect = Instantiate(hitEffect, transform.position, Quaternion.identity);
             Destroy(effect, 1f);
             Destroy(gameObject);

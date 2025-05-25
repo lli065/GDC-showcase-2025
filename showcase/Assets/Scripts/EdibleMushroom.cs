@@ -12,10 +12,25 @@ public class EdibleMushroom : MonoBehaviour
         if (playerNearby && Input.GetKeyDown(KeyCode.E))
         {
             MushroomManager.Instance.AddMushroom(type);
-            Destroy(gameObject);
+            if (type == MushroomType.Poison)
+            {
+                Destroy(gameObject);
+            }
+            else
+            {
+                GetComponent<SpriteRenderer>().enabled = false;
+                GetComponent<Collider2D>().enabled = false;
+                Invoke("Respawn", 120f);
+            }
+            
         }
     }
-    private void OnCollisionEnter2D(Collision2D collision)
+    public void Respawn()
+    {
+        GetComponent<SpriteRenderer>().enabled = true;
+        GetComponent<Collider2D>().enabled = true;
+    }
+        private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {

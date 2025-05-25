@@ -47,6 +47,7 @@ public class DialogueManager : MonoBehaviour
         {
             sentences.Enqueue(line);
         }
+        DisplayNextSentence();
     }
 
     public void DisplayNextSentence() {
@@ -66,7 +67,7 @@ public class DialogueManager : MonoBehaviour
         DialogueLine line = sentences.Dequeue();
         currentSentence = line.sentence;
         nameText.text = line.name;
-        StartCoroutine(TypeSentence(currentSentence));
+        typingCoroutine = StartCoroutine(TypeSentence(currentSentence));
     }
 
     IEnumerator TypeSentence(string sentence)

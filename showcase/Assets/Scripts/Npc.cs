@@ -22,13 +22,11 @@ public class Npc : MonoBehaviour
     [SerializeField] private ConditionType condition;
     [SerializeField] private List<GameObject> objectsToMove;
     [SerializeField] private List<Vector3> movePositions;
-    public DialogueManager dialogueManager;
 
     private void Awake()
     {
         playerNearby = false;
         visualCue.SetActive(false);
-        dialogueManager = FindObjectOfType<DialogueManager>();
     }
 
     void Update()
@@ -70,14 +68,14 @@ public class Npc : MonoBehaviour
                     }
                     break;
                 case QuestState.Completed:
-                    dialogue = quest.completedDialogue != null ? quest.completedDialogue : quest.inProgressDialogue;
+                    dialogue = quest.completedDialogue != null ? quest.completedDialogue : quest.postQuestDialogue;
                     break;
                 case QuestState.Ended:
                     dialogue = quest.postQuestDialogue;
                     break;
             }
         }
-        dialogueManager.StartDialogue(dialogue, this);
+        FindObjectOfType<DialogueManager>().StartDialogue(dialogue, this);
     }
 
     public bool CheckCondition()
@@ -95,6 +93,8 @@ public class Npc : MonoBehaviour
                 return gm.finishedChickenQuest;
             case ConditionType.Mushroom:
                 return gm.talkedToWitch;
+            case ConditionType.Witch:
+                return mm.GetMushroomCount(MushroomType.Poison) >= 44;
         }
         return true;
     }
@@ -102,6 +102,7 @@ public class Npc : MonoBehaviour
     public void OnQuestComplete()
     {
         var gm = GameManager.currentGameManager;
+        var mm = MushroomManager.Instance;
         if (condition == ConditionType.Heaven && quest.state == QuestState.InProgress)
         {
             gm.talkedToWitch = true;
@@ -110,11 +111,17 @@ public class Npc : MonoBehaviour
         if (condition == ConditionType.Evilshroom && quest.state == QuestState.Completed)
         {
             moveObjects();
+            mm.RemoveMushrooms(5, MushroomType.White);
+            mm.RemoveMushrooms(5, MushroomType.Orange);
         }
         if (condition == ConditionType.Chicken && quest.state == QuestState.Completed)
         {
-            MushroomManager.Instance.RemoveMushrooms(5, MushroomType.Heal);
+            mm.RemoveMushrooms(5, MushroomType.Heal);
             gm.finishedChickenQuest = true;
+        }
+        if (condition == ConditionType.Witch)
+        {
+            gm.StartBossFight();
         }
     }
 
@@ -148,13 +155,13 @@ public class Npc : MonoBehaviour
         {
             playerNearby = true;
         }
-        if (collision.gameObject.CompareTag("PlayerAttack"))
-        {
-            if (hurtDialogue != null)
-            {
-                dialogueManager.StartDialogue(hurtDialogue, this);
-            }
-        }
+        // if (collision.gameObject.CompareTag("PlayerAttack"))
+        // {
+        //     if (hurtDialogue != null)
+        //     {
+        //         FindObjectOfType<DialogueManager>().StartDialogue(hurtDialogue, this);
+        //     }
+        // }
     }
 
     private void OnCollisionExit2D(Collision2D collision)

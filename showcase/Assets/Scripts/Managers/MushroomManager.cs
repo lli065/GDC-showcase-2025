@@ -13,6 +13,7 @@ public enum MushroomType
 }
 public class MushroomManager : MonoBehaviour
 {
+    public PlayerController player;
     public static MushroomManager Instance;
     private Dictionary<MushroomType, int> mushroomCounts = new Dictionary<MushroomType, int>();
     private MushroomType selected = MushroomType.Heal;
@@ -26,12 +27,14 @@ public class MushroomManager : MonoBehaviour
     public Image orangeBg;
     public Color selectedColor;
     public Color normalColor;
+    public ShieldController shield;
 
     void Awake()
     {
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
 
+        player = FindObjectOfType<PlayerController>();
         foreach (MushroomType type in System.Enum.GetValues(typeof(MushroomType)))
         {
             mushroomCounts[type] = 0;
@@ -72,16 +75,24 @@ public class MushroomManager : MonoBehaviour
         switch (type)
         {
             case MushroomType.Heal:
-                FindObjectOfType<PlayerController>().Heal(5);
+                player.Heal(5);
                 break;
             case MushroomType.Poison:
                 break;
             case MushroomType.White:
+                player.speed = player.speed + 3;
+                Invoke("ResetPlayerSpeed", 5f);
                 break;
             case MushroomType.Orange:
+                shield.ActivateShield();
                 break;
         }
         UpdateUI();
+    }
+
+    public void ResetPlayerSpeed()
+    {
+        player.speed = 5f;
     }
 
     public void RemoveMushrooms(int amt, MushroomType type)

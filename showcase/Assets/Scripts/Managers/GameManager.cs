@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     public Transform playerTransform;
     public bool talkedToWitch = false;
     public bool finishedChickenQuest = false;
+    public bool inBossFight = false;
     public int currentScene;
 
     private void Awake()

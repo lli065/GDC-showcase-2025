@@ -4,12 +4,27 @@ using UnityEngine;
 
 public class WitchController : MonoBehaviour
 {
-    private Transform target;
+    private Transform player;
     private Rigidbody2D rb;
-    [SerializeField] private float attackRate = 3f;
+    [SerializeField] private float attackCooldown = 3f;
     [SerializeField] private float range = 5f;
+    [SerializeField] private float teleportRange = 10f;
+    [SerializeField] private float teleportCooldown = 8f;
+    [SerializeField] private float teleportDelay = 1f;
+    private float nextTeleportTime;
+
+    [SerializeField] private float spawnCooldown = 20f;
+    private float nextSpawnTime;
+    private int enemiesPerSpawn = 1;
     [SerializeField] private float attackForce = 6f;
-    [SerializeField] private GameObject attackPrefab;
+    public GameObject attackPrefab;
+    public GameObject enemyPrefab;
+    public GameObject teleportPrefab;
+    private bool isTeleporting = false;
+
+    [SerializeField] Vector2 areaMin;
+    [SerializeField] Vector2 areaMax;
+
 
     public int maxHealth = 30;
     int currentHealth;
@@ -18,12 +33,12 @@ public class WitchController : MonoBehaviour
     private DamageFlash damageFlash;
     private bool isAttacking = false;
 
-    public Animator animator; 
+    public Animator animator;
 
 
     void Start()
     {
-        target = FindObjectOfType<PlayerController>().transform;
+        player = FindObjectOfType<PlayerController>().transform;
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
 
@@ -31,26 +46,49 @@ public class WitchController : MonoBehaviour
         damageFlash = GetComponent<DamageFlash>();
         healthBar = GetComponentInChildren<HealthBar>();
         healthBar.UpdateHealthBar(currentHealth, maxHealth);
+
+        nextSpawnTime = spawnCooldown;
+        nextTeleportTime = teleportCooldown;
     }
 
     void Update()
     {
-        if (Vector3.Distance(target.position, transform.position) <= range)
+        if (currentHealth < maxHealth / 3)
         {
-            if (!isAttacking)
+            enemiesPerSpawn = 3;
+        }
+        else if (currentHealth < maxHealth * 2 / 3)
+        {
+            enemiesPerSpawn = 2;
+        }
+        if (Vector3.Distance(player.position, transform.position) <= range)
+        {
+            if (!isAttacking && !isTeleporting)
             {
                 StartCoroutine(AttackCoroutine());
             }
+        }
+
+        if (Time.time >= nextSpawnTime)
+        {
+            StartCoroutine(SpawnEnemies());
+            nextSpawnTime = Time.time + spawnCooldown;
+        }
+
+        if (Time.time >= nextTeleportTime)
+        {
+            Teleport();
+            nextTeleportTime = Time.time + teleportCooldown;
         }
     }
 
     IEnumerator AttackCoroutine()
     {
         isAttacking = true;
-        while (Vector3.Distance(target.position, transform.position) <= range)
+        while (Vector3.Distance(player.position, transform.position) <= range)
         {
             Attack();
-            yield return new WaitForSeconds(1f / attackRate);
+            yield return new WaitForSeconds(attackCooldown);
         }
         isAttacking = false;
     }
@@ -59,11 +97,57 @@ public class WitchController : MonoBehaviour
     {
         animator.SetTrigger("Attack");
 
-        Vector2 direction = (target.position - transform.position).normalized;
+        Vector2 direction = (player.position - transform.position).normalized;
         GameObject attack = Instantiate(attackPrefab, transform.position, Quaternion.identity);
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         attack.transform.rotation = Quaternion.Euler(0, 0, angle);
         attack.GetComponent<Rigidbody2D>().velocity = direction * attackForce;
+    }
+
+    void Teleport()
+    {
+        isTeleporting = true;
+        StartCoroutine(TeleportRoutine());
+    }
+
+    IEnumerator TeleportRoutine()
+    {
+        GameObject effect1 = Instantiate(teleportPrefab, transform.position, Quaternion.identity);
+        Destroy(effect1, 3f);
+        yield return new WaitForSeconds(0.4f);
+
+        GetComponent<SpriteRenderer>().enabled = false;
+        GetComponent<Collider2D>().enabled = false;
+        healthBar.gameObject.SetActive(false);
+        yield return new WaitForSeconds(teleportDelay);
+
+        float angle = Random.Range(0, Mathf.PI * 2);
+        float distance = Random.Range(5f, 7f);
+        Vector3 teleportPosition = player.position + new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0) * distance;
+        transform.position = new Vector3(Mathf.Clamp(teleportPosition.x, areaMin.x, areaMax.x), Mathf.Clamp(teleportPosition.y, areaMin.y, areaMax.y), 0);
+
+
+        GameObject effect2 = Instantiate(teleportPrefab, transform.position, Quaternion.identity);
+        Destroy(effect2, 3f);
+        yield return new WaitForSeconds(0.4f);
+        GetComponent<SpriteRenderer>().enabled = true;
+        GetComponent<Collider2D>().enabled = true;
+        healthBar.gameObject.SetActive(true);
+        isTeleporting = false;
+    }
+
+    IEnumerator SpawnEnemies()
+    {
+        animator.SetTrigger("Attack");
+        for (int i = 0; i < enemiesPerSpawn; i++)
+        {
+            Vector3 direction = (player.position - transform.position).normalized;
+            Vector3 spawnPosition = transform.position + direction * Random.Range(3.5f, 5.5f);
+            GameObject effect = Instantiate(teleportPrefab, spawnPosition, Quaternion.identity);
+            Destroy(effect, 3f);
+            yield return new WaitForSeconds(0.4f);
+            Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
+        }
     }
 
     public void TakeDamage(int damage)

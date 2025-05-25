@@ -78,14 +78,24 @@ public class EnemyController : MonoBehaviour
 
     public void Die()
     {
-        DropMushrooms();
-        Invoke("SpawnGhost", Random.Range(5, 15));
+        if (!GameManager.currentGameManager.inBossFight)
+        {
+            DropMushrooms();
+        }
+        Invoke("SpawnGhost", 10);
         gameObject.SetActive(false);
     }
 
     public void SpawnGhost()
     {
-        Instantiate(ghostPrefab, transform.position, Quaternion.identity);
+        if (EnemyManager.Instance.CanSpawnEnemy())
+        {
+            float angle = Random.Range(0, Mathf.PI * 2);
+            float distance = 6;
+            Vector3 offset = new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0) * distance;
+            Instantiate(ghostPrefab, target.position + offset, Quaternion.identity);
+            EnemyManager.Instance.numEnemies++;
+        }
         Destroy(gameObject);
     }
 

@@ -150,7 +150,6 @@ public class Npc : MonoBehaviour
         }
         if (collision.gameObject.CompareTag("PlayerAttack"))
         {
-            Debug.Log("player attack");
             if (hurtDialogue != null)
             {
                 dialogueManager.StartDialogue(hurtDialogue, this);

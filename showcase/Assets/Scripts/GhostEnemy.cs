@@ -76,7 +76,10 @@ public class GhostEnemy : MonoBehaviour
     public void Die()
     {
         EnemyManager.Instance.RemoveEnemy();
-        Instantiate(mushroomPrefab, transform.position, Quaternion.identity);
+        if (!GameManager.currentGameManager.inBossFight)
+        {
+            Instantiate(mushroomPrefab, transform.position, Quaternion.identity);
+        }
         Destroy(gameObject);
     }
 

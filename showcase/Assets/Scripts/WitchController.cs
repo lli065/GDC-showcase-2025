@@ -6,6 +6,7 @@ public class WitchController : MonoBehaviour
 {
     private Transform player;
     private Rigidbody2D rb;
+    private Vector3 originalPosition;
     [SerializeField] private float attackCooldown = 3f;
     [SerializeField] private float range = 5f;
     [SerializeField] private float teleportRange = 10f;
@@ -33,6 +34,7 @@ public class WitchController : MonoBehaviour
     private DamageFlash damageFlash;
     private bool isAttacking = false;
     private bool fightStarted = false;
+    public GameObject deathTrigger;
 
     public Animator animator;
     public AudioClip attackSound;
@@ -44,6 +46,7 @@ public class WitchController : MonoBehaviour
     {
         player = FindObjectOfType<PlayerController>().transform;
         rb = GetComponent<Rigidbody2D>();
+        originalPosition = transform.position;
         animator = GetComponent<Animator>();
 
         currentHealth = maxHealth;
@@ -54,12 +57,13 @@ public class WitchController : MonoBehaviour
 
     void Update()
     {
+        if (GameManager.currentGameManager == null) return;
         if (!GameManager.currentGameManager.inBossFight) return;
         if (!fightStarted)
         {
-            nextSpawnTime = spawnCooldown;
+            nextSpawnTime = spawnCooldown + Time.time;
             fightStarted = true;
-            nextTeleportTime = teleportCooldown;
+            nextTeleportTime = teleportCooldown + Time.time;
             if (GameManager.currentGameManager.hasPoisonMushrooms)
             {
                 teleportCooldown = 10f;
@@ -178,6 +182,19 @@ public class WitchController : MonoBehaviour
 
     public void Die()
     {
+        GameManager.currentGameManager.EndBossFight();
+        GameManager.currentGameManager.wonBossFight = true;
+        deathTrigger.SetActive(true);
         Destroy(gameObject);
+    }
+
+    public void ResetStats()
+    {
+        currentHealth = maxHealth;
+        healthBar.UpdateHealthBar(currentHealth, maxHealth);
+        fightStarted = false;
+        teleportCooldown = 8f;
+        spawnCooldown = 20f;
+        transform.position = originalPosition;
     }
 }

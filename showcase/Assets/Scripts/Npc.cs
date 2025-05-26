@@ -10,7 +10,8 @@ public enum ConditionType
     Mushroom,
     Evilshroom,
     Witch,
-    Boss
+    Boss,
+    Heaven2
 }
 public class Npc : MonoBehaviour
 {
@@ -19,7 +20,7 @@ public class Npc : MonoBehaviour
     private bool playerNearby;
     public Dialogue defaultDialogue;
     public Dialogue hurtDialogue;
-    [SerializeField] private Quest quest;
+    public Quest quest;
     [SerializeField] private ConditionType condition;
     [SerializeField] private List<GameObject> objectsToMove;
     [SerializeField] private List<Vector3> movePositions;
@@ -96,6 +97,8 @@ public class Npc : MonoBehaviour
                 return gm.talkedToWitch;
             case ConditionType.Witch:
                 return mm.GetMushroomCount(MushroomType.Poison) >= 44;
+            case ConditionType.Heaven2:
+                return gm.wonBossFight;
         }
         return true;
     }

@@ -39,11 +39,7 @@ public class MushroomManager : MonoBehaviour
         else Destroy(gameObject);
 
         player = FindObjectOfType<PlayerController>();
-        foreach (MushroomType type in System.Enum.GetValues(typeof(MushroomType)))
-        {
-            mushroomCounts[type] = 0;
-        }
-        UpdateUI();
+        ResetMushrooms();
     }
 
     void Update()
@@ -81,7 +77,7 @@ public class MushroomManager : MonoBehaviour
         {
             case MushroomType.Heal:
                 player.Heal(5);
-                SoundManager.instance.PlaySound(healSound, transform, 1f);
+                SoundManager.instance.PlaySound(healSound, transform, 0.5f);
                 break;
             case MushroomType.Poison:
                 SoundManager.instance.PlaySound(damageSound, transform, 1f);
@@ -102,6 +98,15 @@ public class MushroomManager : MonoBehaviour
     public void ResetPlayerSpeed()
     {
         player.speed = 5f;
+    }
+
+    public void ResetMushrooms()
+    {
+        foreach (MushroomType type in System.Enum.GetValues(typeof(MushroomType)))
+        {
+            mushroomCounts[type] = 0;
+        }
+        UpdateUI();
     }
 
     public void RemoveMushrooms(int amt, MushroomType type)

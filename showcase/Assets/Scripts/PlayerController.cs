@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public Rigidbody2D playerRigid;
+    public WitchController witch;
     public Animator animator;
     public HealthBar healthBar;
 
@@ -20,6 +21,7 @@ public class PlayerController : MonoBehaviour
     float nextAttackTime = 0;
     public float attackForce = 6f;
     public GameObject attackPrefab;
+    public Npc lastWords;
 
     private DamageFlash damageFlash;
 
@@ -82,7 +84,7 @@ public class PlayerController : MonoBehaviour
         damageFlash.CallDamageFlash();
         SoundManager.instance.PlaySound(damageSound, transform, 1f);
 
-        if (DialogueManager.isTalking)
+        if (DialogueManager.isTalking && !GameManager.currentGameManager.wonBossFight)
         {
             FindObjectOfType<DialogueManager>().EndDialogue();
         }
@@ -95,23 +97,65 @@ public class PlayerController : MonoBehaviour
 
     public void Heal(int amt)
     {
+        if (currentHealth == maxHealth) return;
         currentHealth += amt;
         currentHealth = Mathf.Min(maxHealth, currentHealth);
         healthBar.UpdateHealthBar(currentHealth, maxHealth);
         SoundManager.instance.PlaySound(healSound, transform, 1f);
     }
 
-    public void Die()
+    public void ResetHealth()
     {
-        Debug.Log("Dead");
+        currentHealth = maxHealth;
+        healthBar.UpdateHealthBar(currentHealth, maxHealth);
     }
 
-    private void FixedUpdate() {
+    public void Die()
+    {
+        if (GameManager.currentGameManager.wonBossFight) return;
+        if (GameManager.currentGameManager.inBossFight)
+        {
+            EnemyManager.Instance.RemoveEnemiesInBossFight();
+            MushroomManager.Instance.ResetMushrooms();
+            witch.ResetStats();
+            GameManager.currentGameManager.EndBossFight();
+        }
+        else
+        {
+            GameManager.currentGameManager.ShowGameOverScreen();
+        }
+    }
+
+    public void StartDecreasingHealth()
+    {
+        StartCoroutine(DecreaseHealth());
+    }
+
+    public IEnumerator DecreaseHealth()
+    {
+        while (currentHealth > 0)
+        {
+            TakeDamage(5);
+            if (currentHealth == 80)
+            {
+                lastWords.TriggerDialogue();
+            }
+            if (currentHealth == 10)
+            {
+                FindObjectOfType<DialogueManager>().EndDialogue();
+            }
+            yield return new WaitForSeconds(0.5f);
+        }
+        StartCoroutine(GameManager.currentGameManager.StartEndingScene());
+    }
+
+    private void FixedUpdate()
+    {
         playerRigid.MovePosition(playerRigid.position + movement * speed * Time.fixedDeltaTime);
     }
 
     void OnCollisionEnter2D(Collision2D collision) {
-        if (collision.gameObject.CompareTag("Enemy")) {
+        if (collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Witch")) {
             TakeDamage(3);
         }
     }

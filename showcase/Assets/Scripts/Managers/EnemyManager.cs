@@ -8,6 +8,7 @@ public class EnemyManager : MonoBehaviour
 
     public int maxEnemies = 10;
     public int numEnemies = 0;
+    public Vector3 bossFightCenter;
 
     void Awake()
     {
@@ -28,5 +29,17 @@ public class EnemyManager : MonoBehaviour
     public void RemoveEnemy()
     {
         numEnemies = Mathf.Max(0, numEnemies - 1);
+    }
+
+    public void RemoveEnemiesInBossFight()
+    {
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        foreach (GameObject enemy in enemies)
+        {
+            if (Vector3.Distance(bossFightCenter, enemy.transform.position) <= 100)
+            {
+                Destroy(enemy);
+            }
+        }
     }
 }

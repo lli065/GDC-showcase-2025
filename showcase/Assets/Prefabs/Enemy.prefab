@@ -178,6 +178,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slider: {fileID: 5009941569265365438}
+  healthText: {fileID: 0}
 --- !u!1 &1283928704284948063
 GameObject:
   m_ObjectHideFlags: 0
@@ -398,6 +399,8 @@ MonoBehaviour:
   healthBar: {fileID: 7300122514863131918}
   ghostPrefab: {fileID: 4080416208250221222, guid: 48b9206a4ec7f4e5fa3223fb8e5bb3bf, type: 3}
   mushroomPrefab: {fileID: 7732818002324470545, guid: 83ab3dec255db40d1b36f64581a6be4f, type: 3}
+  damageSound: {fileID: 8300000, guid: 6d8c53b11dc2e451ab21b950ba6d638c, type: 3}
+  attackSound: {fileID: 8300000, guid: 8e4a54a4741fe42b7bb18930d6fd7876, type: 3}
 --- !u!50 &6174444686115937881
 Rigidbody2D:
   serializedVersion: 4

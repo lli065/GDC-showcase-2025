@@ -21,6 +21,8 @@ public class EnemyController : MonoBehaviour
     private bool isActive = true;
     public GameObject ghostPrefab;
     public GameObject mushroomPrefab;
+    public AudioClip damageSound;
+    public AudioClip attackSound;
 
     // Start is called before the first frame update
     void Start()
@@ -52,6 +54,7 @@ public class EnemyController : MonoBehaviour
         while (Vector3.Distance(target.position, transform.position) <= range)
         {
             Attack();
+            SoundManager.instance.PlaySound(attackSound, transform, 1f);
             yield return new WaitForSeconds(1f / attackRate);
         }
         isAttacking = false;
@@ -71,6 +74,7 @@ public class EnemyController : MonoBehaviour
         currentHealth -= damage;
         healthBar.UpdateHealthBar(currentHealth, maxHealth);
         damageFlash.CallDamageFlash();
+        SoundManager.instance.PlaySound(damageSound, transform, 1f);
         if (currentHealth <= 0)
         {
             Die();

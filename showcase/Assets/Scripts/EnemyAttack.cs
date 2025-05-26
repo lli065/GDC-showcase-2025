@@ -8,9 +8,15 @@ public class EnemyAttack : MonoBehaviour
     public float lifetime = 1f;
     public int attackDamage = 10;
     private bool hasHit = false;
+    public bool witch = false;
 
-    void Start() {
+    void Start()
+    {
         Destroy(gameObject, lifetime);
+        if (witch && GameManager.currentGameManager.inBossFight && GameManager.currentGameManager.hasPoisonMushrooms)
+        {
+            attackDamage = 5;
+        }
     }
 
     void OnTriggerEnter2D(Collider2D collision)

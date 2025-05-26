@@ -32,8 +32,12 @@ public class WitchController : MonoBehaviour
 
     private DamageFlash damageFlash;
     private bool isAttacking = false;
+    private bool fightStarted = false;
 
     public Animator animator;
+    public AudioClip attackSound;
+    public AudioClip damageSound;
+    public AudioClip teleportSound;
 
 
     void Start()
@@ -46,21 +50,28 @@ public class WitchController : MonoBehaviour
         damageFlash = GetComponent<DamageFlash>();
         healthBar = GetComponentInChildren<HealthBar>();
         healthBar.UpdateHealthBar(currentHealth, maxHealth);
-
-        nextSpawnTime = spawnCooldown;
-        nextTeleportTime = teleportCooldown;
     }
 
     void Update()
     {
         if (!GameManager.currentGameManager.inBossFight) return;
+        if (!fightStarted)
+        {
+            nextSpawnTime = spawnCooldown;
+            fightStarted = true;
+            nextTeleportTime = teleportCooldown;
+            if (GameManager.currentGameManager.hasPoisonMushrooms)
+            {
+                teleportCooldown = 10f;
+            }
+        }
         if (currentHealth < maxHealth / 3)
         {
-            enemiesPerSpawn = 3;
+            spawnCooldown = 14f;
         }
         else if (currentHealth < maxHealth * 2 / 3)
         {
-            enemiesPerSpawn = 2;
+            spawnCooldown = 17f;
         }
         if (Vector3.Distance(player.position, transform.position) <= range)
         {
@@ -89,6 +100,7 @@ public class WitchController : MonoBehaviour
         while (Vector3.Distance(player.position, transform.position) <= range)
         {
             Attack();
+            SoundManager.instance.PlaySound(attackSound, transform, 1f);
             yield return new WaitForSeconds(attackCooldown);
         }
         isAttacking = false;
@@ -113,6 +125,8 @@ public class WitchController : MonoBehaviour
 
     IEnumerator TeleportRoutine()
     {
+        SoundManager.instance.PlaySound(teleportSound, transform, 1f);
+
         GameObject effect1 = Instantiate(teleportPrefab, transform.position, Quaternion.identity);
         Destroy(effect1, 3f);
         yield return new WaitForSeconds(0.4f);

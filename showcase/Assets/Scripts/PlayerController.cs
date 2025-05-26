@@ -22,6 +22,9 @@ public class PlayerController : MonoBehaviour
     public GameObject attackPrefab;
 
     private DamageFlash damageFlash;
+
+    public AudioClip damageSound;
+    public AudioClip healSound;
     
     private void Start()
     {
@@ -32,7 +35,9 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if (DialogueManager.isTalking) {
+        if (GameManager.currentGameManager.isPaused) return;
+        if (DialogueManager.isTalking)
+        {
             playerRigid.velocity = Vector2.zero;
             return;
         }
@@ -75,6 +80,7 @@ public class PlayerController : MonoBehaviour
         currentHealth -= damage;
         healthBar.UpdateHealthBar(currentHealth, maxHealth);
         damageFlash.CallDamageFlash();
+        SoundManager.instance.PlaySound(damageSound, transform, 1f);
 
         if (DialogueManager.isTalking)
         {
@@ -92,6 +98,7 @@ public class PlayerController : MonoBehaviour
         currentHealth += amt;
         currentHealth = Mathf.Min(maxHealth, currentHealth);
         healthBar.UpdateHealthBar(currentHealth, maxHealth);
+        SoundManager.instance.PlaySound(healSound, transform, 1f);
     }
 
     public void Die()

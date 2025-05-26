@@ -9,7 +9,8 @@ public enum ConditionType
     Chicken,
     Mushroom,
     Evilshroom,
-    Witch
+    Witch,
+    Boss
 }
 public class Npc : MonoBehaviour
 {
@@ -121,12 +122,21 @@ public class Npc : MonoBehaviour
         }
         if (condition == ConditionType.Witch)
         {
+            quest.state = QuestState.InProgress;
             gm.StartBossFight();
+        }
+        if (condition == ConditionType.Boss)
+        {
+            gm.inBossFight = true;
         }
     }
 
     public void OnDialogueComplete()
     {
+        if (quest == null && condition != ConditionType.None)
+        {
+            OnQuestComplete();
+        }
         if (quest == null) return;
         switch (quest.state)
         {

@@ -466,6 +466,7 @@ MonoBehaviour:
   ghostPrefab: {fileID: 4080416208250221222}
   mushroomPrefab: {fileID: 7732818002324470545, guid: 83ab3dec255db40d1b36f64581a6be4f, type: 3}
   spawnInterval: 10
+  damageSound: {fileID: 8300000, guid: 6d8c53b11dc2e451ab21b950ba6d638c, type: 3}
 --- !u!95 &1709209349723778621
 Animator:
   serializedVersion: 5

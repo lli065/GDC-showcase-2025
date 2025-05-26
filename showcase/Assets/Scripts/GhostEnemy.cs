@@ -24,6 +24,7 @@ public class GhostEnemy : MonoBehaviour
     private bool isKnockedBack = false;
     private float knockbackTime = 0.2f;
     private float knockbackCooldown = 0.2f;
+    public AudioClip damageSound;
 
     // Start is called before the first frame update
     void Start()
@@ -84,6 +85,7 @@ public class GhostEnemy : MonoBehaviour
         currentHealth -= damage;
         healthBar.UpdateHealthBar(currentHealth, maxHealth);
         damageFlash.CallDamageFlash();
+        SoundManager.instance.PlaySound(damageSound, transform, 1f);
         canDamage = false;
         Invoke("ResetDamageCooldown", damageCooldown);
         if (currentHealth <= 0)

@@ -9,7 +9,8 @@ public class LevelManager : MonoBehaviour
     public Animator transition;
     public float transitionTime = 1f;
     
-    public void LoadNextScene() {
+    public void LoadNextScene()
+    {
         StartCoroutine(Load(SceneManager.GetActiveScene().buildIndex + 1));
     }
 

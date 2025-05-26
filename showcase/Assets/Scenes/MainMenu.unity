@@ -288,7 +288,7 @@ RectTransform:
   m_GameObject: {fileID: 189597357}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1218481185}
@@ -296,7 +296,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -5, y: 6}
+  m_AnchoredPosition: {x: -5, y: 48}
   m_SizeDelta: {x: 250, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &189597359
@@ -768,7 +768,7 @@ RectTransform:
   m_GameObject: {fileID: 691497142}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 670325116}
@@ -776,7 +776,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -4, y: -74}
+  m_AnchoredPosition: {x: -4, y: -347}
   m_SizeDelta: {x: 250, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &691497144
@@ -889,7 +889,7 @@ RectTransform:
   m_GameObject: {fileID: 720736709}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 782687192}
@@ -897,7 +897,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -4, y: -154}
+  m_AnchoredPosition: {x: -4, y: -149}
   m_SizeDelta: {x: 250, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &720736711
@@ -1160,9 +1160,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47b9d0e84754a4110a866bfbf56372f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  transition: {fileID: 0}
   playerTransform: {fileID: 0}
-  currentScene: 0
+  bossFightPosition: {x: 0, y: 0, z: 0}
   talkedToWitch: 0
+  finishedChickenQuest: 0
+  inBossFight: 0
+  hasPoisonMushrooms: 0
+  currentScene: 0
+  bossFightDialogue:
+    lines: []
+  bossNpc: {fileID: 0}
+  isPaused: 0
+  pauseMenu: {fileID: 0}
 --- !u!1 &840472938
 GameObject:
   m_ObjectHideFlags: 0
@@ -2087,14 +2097,14 @@ RectTransform:
   m_GameObject: {fileID: 1676285040}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 3, y: 3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1026957868}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 90}
+  m_AnchoredPosition: {x: 0, y: 344}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1676285042
@@ -2386,7 +2396,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2153003768783566572, guid: 51c6617918c0644cb978bcf7d395ae1d, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 450.5788
+      value: 1080
+      objectReference: {fileID: 0}
+    - target: {fileID: 2153003768783566572, guid: 51c6617918c0644cb978bcf7d395ae1d, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 384
       objectReference: {fileID: 0}
     - target: {fileID: 2153003768783566572, guid: 51c6617918c0644cb978bcf7d395ae1d, type: 3}
       propertyPath: m_AnchoredPosition.y

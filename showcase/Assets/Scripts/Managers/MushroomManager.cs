@@ -28,6 +28,10 @@ public class MushroomManager : MonoBehaviour
     public Color selectedColor;
     public Color normalColor;
     public ShieldController shield;
+    public AudioClip healSound;
+    public AudioClip damageSound;
+    public AudioClip powerupSound;
+    public AudioClip eatingSound;
 
     void Awake()
     {
@@ -72,18 +76,23 @@ public class MushroomManager : MonoBehaviour
             return;
         }
         mushroomCounts[type]--;
+        SoundManager.instance.PlaySound(eatingSound, transform, 1f);
         switch (type)
         {
             case MushroomType.Heal:
                 player.Heal(5);
+                SoundManager.instance.PlaySound(healSound, transform, 1f);
                 break;
             case MushroomType.Poison:
+                SoundManager.instance.PlaySound(damageSound, transform, 1f);
                 break;
             case MushroomType.White:
                 player.speed = player.speed + 3;
+                SoundManager.instance.PlaySound(powerupSound, transform, 1f);
                 Invoke("ResetPlayerSpeed", 5f);
                 break;
             case MushroomType.Orange:
+                SoundManager.instance.PlaySound(powerupSound, transform, 1f);
                 shield.ActivateShield();
                 break;
         }

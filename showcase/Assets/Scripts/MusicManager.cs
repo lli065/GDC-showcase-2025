@@ -39,6 +39,7 @@ public class MusicManager : MonoBehaviour
 
     public void PlayMusic(int sceneIndex)
     {
+        if (musicSource == null) return;
         AudioClip audioClip = null;
         switch (sceneIndex)
         {

@@ -135,6 +135,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   transition: {fileID: 5093291626063682069}
   transitionTime: 1
+  settingsMenu: {fileID: 0}
 --- !u!1 &8013939247633128064
 GameObject:
   m_ObjectHideFlags: 0
@@ -172,8 +173,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 368.40558, y: 233.76257}
-  m_SizeDelta: {x: 1920, y: 1080}
+  m_AnchoredPosition: {x: 339.9853, y: 189.7626}
+  m_SizeDelta: {x: 2500.9932, y: 1572.9639}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &1211573972942706523
 Canvas:

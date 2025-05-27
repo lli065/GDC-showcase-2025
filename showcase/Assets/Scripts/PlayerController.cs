@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
     public float attackForce = 6f;
     public GameObject attackPrefab;
     public Npc lastWords;
+    private bool isDecreasing;
 
     private DamageFlash damageFlash;
 
@@ -41,6 +42,9 @@ public class PlayerController : MonoBehaviour
         if (DialogueManager.isTalking)
         {
             playerRigid.velocity = Vector2.zero;
+            animator.SetFloat("Horizontal", 0);
+            animator.SetFloat("Vertical", 0);
+            animator.SetFloat("Speed", 0);
             return;
         }
 
@@ -118,6 +122,10 @@ public class PlayerController : MonoBehaviour
             EnemyManager.Instance.RemoveEnemiesInBossFight();
             MushroomManager.Instance.ResetMushrooms();
             witch.ResetStats();
+            ResetHealth();
+            GameManager.currentGameManager.RemoveAllGhosts();
+            EnemyManager.Instance.RemoveEnemiesInBossFight();
+            GameManager.currentGameManager.inBossFight = false;
             GameManager.currentGameManager.EndBossFight();
         }
         else
@@ -128,11 +136,15 @@ public class PlayerController : MonoBehaviour
 
     public void StartDecreasingHealth()
     {
-        StartCoroutine(DecreaseHealth());
+        if (!isDecreasing)
+        {
+            StartCoroutine(DecreaseHealth());
+        }
     }
 
     public IEnumerator DecreaseHealth()
     {
+        isDecreasing = true;
         while (currentHealth > 0)
         {
             TakeDamage(5);

@@ -71,11 +71,11 @@ public class WitchController : MonoBehaviour
         }
         if (currentHealth < maxHealth / 3)
         {
-            spawnCooldown = 14f;
+            spawnCooldown = 12f;
         }
         else if (currentHealth < maxHealth * 2 / 3)
         {
-            spawnCooldown = 17f;
+            spawnCooldown = 15f;
         }
         if (Vector3.Distance(player.position, transform.position) <= range)
         {

@@ -41,7 +41,6 @@ public class GameManager : MonoBehaviour
         if (currentGameManager == null)
         {
             currentGameManager = this;
-            DontDestroyOnLoad(this);
         }
         else
         {
@@ -103,6 +102,11 @@ public class GameManager : MonoBehaviour
 
     public void Quit()
     {
+        pauseMenu.SetActive(false);
+        settingsMenu.SetActive(false);
+        controlsMenu.SetActive(false);
+        Time.timeScale = 1f;
+        isPaused = false;
         levelManager.LoadMenu();
     }
 
@@ -137,7 +141,7 @@ public class GameManager : MonoBehaviour
     IEnumerator BossFightEndTransition()
     {
         navaeh.quest.state = QuestState.InProgress;
-        newHeaven.gameObject.transform.position = oldHeaven.transform.position;
+        newHeaven.gameObject.transform.position = new Vector3(22.26f, -17.32f, 0);
         oldHeaven.transform.position = new Vector3(-5000, 0, 0);
         RemoveAllGhosts();
         transition.SetTrigger("Start");

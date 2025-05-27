@@ -15,7 +15,7 @@ public class EnemyAttack : MonoBehaviour
         Destroy(gameObject, lifetime);
         if (witch && GameManager.currentGameManager.inBossFight && GameManager.currentGameManager.hasPoisonMushrooms)
         {
-            attackDamage = 5;
+            attackDamage = 8;
         }
     }
 

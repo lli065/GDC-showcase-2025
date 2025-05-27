@@ -102,7 +102,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hitEffect: {fileID: 717148041133191363, guid: 29263734617c545359d7f249d9a73bca, type: 3}
   lifetime: 1
-  attackDamage: 8
+  attackDamage: 10
   witch: 1
 --- !u!50 &4809808623114401724
 Rigidbody2D:
